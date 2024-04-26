@@ -34,7 +34,7 @@ jobs:
         id: publish
       # Linux comand: outputs the name of file 
       # The '{}' placeholder will contain the js file name
-        run: find dist/assests/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
+        run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
         # Uploading Artifacts 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
