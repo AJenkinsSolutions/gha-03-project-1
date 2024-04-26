@@ -34,7 +34,7 @@ jobs:
         id: publish
       # Linux comand: outputs the name of file 
       # The '{}' placeholder will contain the js file name
-        run: find dist/assests/*.js -type -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
+        run: find dist/assests/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
         # Uploading Artifacts 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
@@ -62,6 +62,7 @@ jobs:
         run: ls
       - name: Output filename
       # 'needs' Contains the outputs of all jobs that are defined as a dependency of the current job. 
+      # we will out put the name of this file here
         run: echo "${{ needs.build.outputs.script-file }}"
       - name: Deploy
         run: echo "Deploying..."
