@@ -9,6 +9,16 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+        # DEPENDENCY CACHING
+      - name: cache dependencies
+        uses: actions/cache@v3
+        with:
+          # This is the path node uses to store its dependencies
+          path: ~/.npm
+          # is used to retreive the cache in the future
+          # We need to provide a dynamic name that will change onces the cache is discarded
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+          # So basiclly if the /.npm folder doesnt exist it will run the npm ci command, but if does it will just use that folder
       - name: Install dependencies
         run: npm ci
       - name: Lint code
@@ -24,6 +34,12 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+        # DEPENDENCY CACHING
+      - name: cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
       - name: Build website
@@ -46,8 +62,6 @@ jobs:
           # path: | 
           #   dist
           #   # package.json
-
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
