@@ -44,14 +44,14 @@ jobs:
         run: npm ci
       - name: Build website
         run: npm run build
-        # Job Ouput: We want the file name for the js file in the dist/assests folder
+        # JOB OUTPUT: We want the file name for the js file in the dist/assests folder
         # We want this file so other jobs can use it
       - name: Publish JS Filename
         id: publish
       # Linux comand: outputs the name of file 
       # The '{}' placeholder will contain the js file name
         run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
-        # Uploading Artifacts 
+        # Uploading Artifacts   
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
